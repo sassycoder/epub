@@ -276,12 +276,13 @@ a.skip:active,a.skip:focus {
 
 .wrapper > header {
   padding: 0;
+  width: 100%;
   position: fixed;
   z-index: 999;
   transition: background 0.4s ease;
 
-  .row {
-    width: 1024px;
+  .pane {
+    vertical-align: top;
   }
 
   .logo {
@@ -337,6 +338,10 @@ a.skip:active,a.skip:focus {
       margin-top: 29px;
       a {
         color: $teal;
+
+        &:hover, &:focus, &:active {
+          color: $lightOrange;
+        }
       }
     }
   }
@@ -346,6 +351,13 @@ a.skip:active,a.skip:focus {
   background: url(/assets/img/structure/hero.jpg) no-repeat center $black;
   background-size: cover;
   min-height: 640px;
+
+  &.vid-playing {
+    #vid1 { opacity: 1; }
+    .wrapper-intro {      
+      h1, .intro {opacity: 0;}
+    }
+  }
 }
 
 .vid-ph {
@@ -353,8 +365,6 @@ a.skip:active,a.skip:focus {
   z-index: 1;
   transition: all 1s ease-out;
   display: none;
-
-  &.fade-out { z-index: 0; }
 }
 
 #vid1 {
@@ -363,10 +373,6 @@ a.skip:active,a.skip:focus {
   top: 0;
   opacity: 0;
   transition: opacity 1s ease;
-
-  &.fade-in {
-    opacity: 1;
-  }
 }
 
 .wrapper-intro {
@@ -382,6 +388,7 @@ a.skip:active,a.skip:focus {
     color: #fff;
     margin: 0 auto;
     text-align: center;
+    transition: all 0.4s ease;
   }
 
   h1 {
@@ -564,6 +571,11 @@ a.skip:active,a.skip:focus {
   }
 }
 
+.news-item {
+  vertical-align: top;
+  width: 229px;
+}
+
 .news-date {
   font-family: 'Gotham Narrow SSm A', 'Gotham Narrow SSm B'; font-weight: 700; font-style: normal;
   font-size: 10px;
@@ -618,6 +630,8 @@ a.skip:active,a.skip:focus {
 }
 
 .contact-box {
+  vertical-align: top;
+
   p { 
     font-size: 14px;
     font-size: 1.4rem;
@@ -687,7 +701,7 @@ a.skip:active,a.skip:focus {
 footer {
   float: left;
   width: 100%;
-  margin: 60px 0 20px;
+  margin: 60px 0 0;
   padding: 10px 0;
   background-color: $black;
   box-sizing: border-box;
@@ -723,7 +737,22 @@ footer {
   }
 
   .wrapper-partner {
-    max-width: 350px;
+    max-width: 45%;
+
+    img {
+      float: none;
+      margin: 0 auto 20px;
+    }
+  }
+
+  .news-item {
+    width: 46%;
+    margin-bottom: 30px;
+  }
+
+  .wrapper-contact {
+    width: 100%;
+    margin: 0;
   }
 
 }
@@ -742,5 +771,25 @@ footer {
 }
 
 @media all and (max-width: 480px) {
+  .wrapper-partner {
+    max-width: 40%;
+    
+  }
 
+  .news-item {
+    width: 100%;
+    margin-left: 0!important;
+    
+    img {
+      float: left;
+      width: 40%;
+      margin-right: 10px;
+    }
+    .news-desc {display: none;}
+  }
+
+  .contact-box {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }

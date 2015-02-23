@@ -1,5 +1,5 @@
   .wrapper {
-    width: 1024px;
+    width: 100%;
     min-height: 100%;
     height: 100%;
     margin: 0 auto;
@@ -61,8 +61,8 @@
     // }
 
     .pane {
-      display: block;
-      float: left;
+      display: inline-block;
+      //float: left;
       margin-left: 20px;
       text-align: left;
 
@@ -70,10 +70,13 @@
         margin-left: 0;
       }
       &:first-child {
-        margin-left: 24px;
+        margin-left: 0;
       }
       &.relative {
         position: relative;
+      }
+      &.center {
+        text-align: center;
       }
     }
 
@@ -221,39 +224,23 @@
 
 @media all and(max-width: 1023px) {
   .wrapper {
-    width: 768px;
+    width: 100%;
     margin: auto;
     padding: 0;
   }
 
-  .aside {
-    margin-top: 20px;
-    padding: 0;
-    > * {
-      display: none;
-    }
-    > .advertising {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-
-      div {
-        margin: 0 auto;
-      }
-    }
-  }
   .row {
+    padding: 0 4%;
     &.tp-margin, &.margin {
       padding-left: 28px;
       padding-right: 28px;
     }
 
-    &.grid {
-      .pane {
-        &:nth-child(4n + 1) { margin-left: 0; }
-      }
-    }
+    // &.grid {
+    //   .pane {
+    //     &:nth-child(4n + 1) { margin-left: 0; }
+    //   }
+    // }
 
     .pane {
       margin-left: 20px;

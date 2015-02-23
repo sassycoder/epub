@@ -50,7 +50,7 @@ module.exports = function (grunt) {
         dest: 'assets/js/framework.js'
       },
       library: {
-        src: ['assets/js/lib/single/jquery-1.8.3.js',
+        src: ['assets/js/lib/single/jquery-2.1.1.js',
               'assets/js/lib/single/jquery.tooltipster.min.js',
               'assets/js/lib/*.js'],
         dest: 'assets/js/lib.js'
@@ -70,8 +70,7 @@ module.exports = function (grunt) {
     bake: {
       build: {
         files: {
-            'index.html': 'templates/structure/index.html',
-            'template1.html': 'templates/layout/template1.html'
+            'index.html': 'templates/structure/index.html'
         }
       }
     },

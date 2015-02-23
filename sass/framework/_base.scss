@@ -10,6 +10,7 @@ $black: #000;
 $offBlack: #333;
 $red: #ff1c26;
 $teal: #006e86;
+$torquoise: #00708a;
 
 .orange {color: $orange; border-color: $orange;}
 .white {color: $white; border-color: $white;}
@@ -320,6 +321,19 @@ a.skip:active,a.skip:focus {
 
   .nav-btn {
     display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 15px;
+    font-size: 42px;
+    font-size: 4.2rem;
+    line-height: 50px;
+    line-height: 5rem;
+    color: $white;
+
+    &:hover, &:focus, &:active {
+      color: $lightOrange;
+    }
   }
 
   &.fixed {
@@ -332,6 +346,14 @@ a.skip:active,a.skip:focus {
       margin-bottom: 15px;
       margin-top: 15px;
       @include icons-sprite("logo-small");
+    }
+
+    .nav-btn {
+      color: $teal;
+
+      &:hover, &:focus, &:active {
+        color: $orange;
+      }
     }
 
     .nav {
@@ -353,7 +375,7 @@ a.skip:active,a.skip:focus {
   min-height: 640px;
 
   &.vid-playing {
-    #vid1 { opacity: 1; }
+    #vid1 { opacity: 1; pointer-events: all; }
     .wrapper-intro {      
       h1, .intro {opacity: 0;}
     }
@@ -372,6 +394,7 @@ a.skip:active,a.skip:focus {
   left: 0;
   top: 0;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 1s ease;
 }
 
@@ -736,6 +759,18 @@ footer {
     display: none!important;
   }
 
+  .wrapper header {
+
+    &.fixed {
+      .logo {margin-bottom: 0;}
+      .nav { margin-bottom: 19px; } 
+
+    }
+
+    .pane { margin-left: 0; }
+    .nav { margin-top: 30px; }
+  }
+
   .wrapper-partner {
     max-width: 45%;
 
@@ -766,8 +801,78 @@ footer {
 
   .wrapper > header {
 
+    &.fixed {
+      min-height: 80px;
+      .wrapper-logo {width: auto!important;}
+      .logo { 
+        display: inline-block;
+        transition: none; 
+      }
+
+      &.menu-open {
+        background-color: $torquoise;
+
+        .logo {
+          background: url(/assets/img/icons/logo-small-white.png) no-repeat;
+        }
+        .nav-btn {
+          color: $white;
+
+          &:hover, &:focus, &:active {
+            color: $lightOrange;
+          } 
+        }
+
+        .nav {
+          display: block;
+
+          a { 
+            color: $white; 
+            &:hover, &:focus, &:active {
+              color: $lightOrange;
+            }
+          }
+        }
+      }
+    }
+
+    .nav-btn { display: block; }
+    .nav {
+      display: none;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background-color: $torquoise;
+
+      li {
+        width: 100%;
+        margin: 0;
+      }
+
+      a {
+        font-size: 20px;
+        font-size: 2rem;
+        padding: 10px 0;
+        color: $white;
+        display: block;
+
+        &:hover, &:focus, &:active {
+          color: $lightOrange;
+        }
+      }
+    }
   }
 
+  .wrapper-intro {
+    h1 {
+      margin-bottom: 40px;
+    }
+    .intro {
+      display: none;
+    }
+  }
 }
 
 @media all and (max-width: 480px) {

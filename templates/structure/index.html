@@ -318,7 +318,8 @@
 
 		$(window).load(function() {
 
-			var header = $("header"),
+			var header = $('header'),
+					navBtn = $('.nav-btn'),
 					$window = $(window),
 					vidWrapper = $('.video-player'),
 					btnPlay = $('.vid-btn'),
@@ -353,14 +354,20 @@
 
 					handleScrollFn = function () {
 						if ($window.scrollTop() > 250) {
-					    header.addClass("fixed");
+					    header.addClass("fixed").removeClass('menu-open');
 					  } else {
-					    header.removeClass("fixed");
+					    header.removeClass("fixed menu-open");
 					  };
 
 					  // if ($window.scrollTop() > 580 && vidPlaying) {
 					  // 	vid.api('pause');
 					  // }
+					},
+
+					handleNav = function (e) {
+						header.toggleClass('menu-open');
+						header.hasClass('fixed') ? {} : header.addClass('fixed');
+						e.preventDefault();
 					},
 
 					initMap = function () {
@@ -406,8 +413,10 @@
 
         initMap();
         $window.on("scroll", handleScrollFn);
-        handleScrollFn();
+        navBtn.on('click', handleNav);    
         $('.vid-btn').on('click', playVid);
+
+        handleScrollFn();
 
         owl.owlCarousel({
 				    items: 3,

@@ -1,0 +1,484 @@
+.megamenu-container {
+    float: left;
+}
+
+.sub-menu li a {
+    color: #becf00;
+
+    .sub-menu li a {
+      color: #000;
+    }
+}
+
+.megamenu-container ul {
+    float: left;
+
+  .menu-item {
+    float: left;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-size: 1.8rem;
+    line-height: 18px;
+    line-height: 1.8rem;
+    position: relative;
+
+    &:first-child {
+      a {
+        &.active {
+          border-radius: 0 5px 0 0;
+        }
+      }
+    }
+
+    &.back {
+      display: none!important;
+    }
+
+    > .sub-menu { //first level
+      display: none;
+      position: absolute;
+      top: 44px;
+      left: 0;
+      width: 300px;
+      background: #fff;
+      z-index: 99;
+      border: 1px solid #becf00;
+      border-top-width: 3px;
+      box-shadow: 0px 6px 12px 0px rgba(50,50,50,0.75);
+
+      li {
+        float: none;
+        display: inline-block;
+        //width: 100%;
+
+        a {
+          text-align: left;
+          font-family: 'MuseoSlab900';
+          font-size: 13px;
+          font-size: 1.3rem;
+          line-height: 32px;
+          line-height: 3.2rem;
+          color: #8cb624;
+          padding-bottom: 8px;
+
+          &:hover, &:active, &:focus {
+            color: #ff9000;
+          }
+        }
+      }
+
+      .sub-menu { //second level
+        display: block;
+        position: static;
+        box-shadow: none;
+        border: 0;
+        width: auto;
+
+        li {
+          display: block;
+          a {
+            font-family: 'MuseoSans300';
+            font-size: 11px;
+            font-size: 1.1rem;
+            line-height: 13px;
+            line-height: 1.3rem;
+            padding: 0 14px 8px 18px;
+            float: none;
+            color: #000;
+
+            &:hover, &:active, &:focus {
+              color: #becf00;
+            }
+
+            &:before {
+              content: '>';
+              float: left;
+              padding: 0 5px 0 0;
+              color: #becf00;
+            }
+          }
+        }
+      }
+    }
+
+    > a {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      color: #000;
+      font-size: 14px;
+      font-size: 1.4rem;
+      line-height: 16px;
+      line-height: 1.6rem;
+      font-family: 'MuseoSansCond900';
+      text-transform: uppercase;     
+
+      &:hover, &:focus, &:active {
+        color: #becf00;
+        text-decoration: none;
+      }
+
+       &.active {
+        background: #becf00;
+        color: #fff;
+        border-radius: 5px 5px 0 0;
+        border-top: 3px solid #becf00;
+        margin-top: -3px;
+      }  
+
+      span {
+        position: relative;
+      }
+    }
+  }
+}
+
+.megamenu-container .mega-drop {
+    display: none;
+    position: absolute;
+    left: 0;
+    margin: 0;
+    z-index: 1;
+    font-size: 14px;
+    font-size: 1.4rem;
+    width: 300px;
+    top: auto;
+}
+
+.megamenu-container .mega-btn,
+.megamenu-container .search-btn {
+    display: none;
+    z-index: 2;
+    position: absolute;
+    top: 8px;
+    left: 10px;
+}
+
+.megamenu-container .mega-btn a,
+.megamenu-container .search-btn  a {
+    display: block;
+    margin: 0;
+    color: #fff;
+
+    &:before {
+      font-size: 48px;
+      font-size: 4.8rem;
+    }
+
+    &:hover, &:focus, &:active {
+      color: #000;
+    }
+}
+
+.megamenu-container .search-btn {
+  left: auto;
+  right: 14px;
+  top: 6px;
+
+  a {
+    margin: 0;
+
+    &:before {
+      font-size: 28px;
+      font-size: 2.8rem;
+    }
+  }
+} 
+
+.megamenu-container .mega-drop .close {
+    display: none;
+}
+
+.megamenu-container .inner {
+    background-color: #fff;
+    padding: 8px 0 0 0;
+    box-shadow: 0px 6px 12px 0px rgba(50, 50, 50, 0.75);
+    border: 1px solid #becf00;
+    border-top-width: 3px;
+
+    ul {
+        li {
+          padding-left: 10px;
+            a {
+                display: block;
+                padding: 8px 0 3px 16px;
+                color: #333;
+                font-family: 'WaitroseRegular';
+                font-size: 16px;
+                font-size: 1.6rem;
+                line-height: 26px;
+                line-height: 2.6rem;
+                position: relative;
+                //@extend .arrow_carrot-right;
+
+                &:before {
+                    font-size: 14px;
+                    padding: 5px 3px 0 0;
+                    position: absolute;
+                    left: 0;
+                }
+
+                &:hover, &:focus, &:active {
+                    color: #e46285;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+  .megamenu-container {
+      min-width:0;
+
+      .mobile {
+        display: block;
+      }
+
+    .home {
+      font-size: 17px;
+      font-size: 1.7rem;
+      line-height: 36px;
+      line-height: 3.6rem;
+      color: #000;
+      padding: 23px 0 0 20px;
+      display: block;
+    }
+  }
+
+  .megamenu-container .mega-btn, 
+  .megamenu-container .search-btn {
+      display: block
+  }
+
+  .megamenu-container .megamenu-list {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 63px;
+      bottom: 0;
+      background-color: #fff;
+      width: 50%;
+      box-shadow: 0px 6px 12px 0px rgba(50,50,50,0.75);
+      border: 1px solid #becf00;
+      overflow: hidden;
+      z-index: 99;
+  }
+
+  .megamenu-container .mega-item {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 46px;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .megamenu-container ul {
+    float: none;
+
+    .menu-item {
+      float: none;
+      margin: 0 10px;
+      border-bottom: 1px dotted #000;
+      position: static;
+
+      a {
+        font-family: 'MuseoSans300';
+        font-size: 16px;
+        font-size: 1.6rem;
+        line-height: 16px;
+        line-height: 1.6rem;
+        text-align: left;
+      }
+
+      &.menu-item-has-children {
+        a {
+          &:after {
+            content: 'E';
+            float: right;
+            font-family: 'ElegantIcons';
+            font-size: 22px;
+            font-size: 2.2rem;
+            line-height: 16px;
+            line-height: 1.6rem;
+            color: #8cb624;
+          }
+        }
+      }
+
+      &.back {
+        display: block!important;
+        a.js-back {
+          font-family: 'MuseoSans900';
+          padding-left: 10px;
+
+          &:after { 
+            content: 'D';
+            float: left;
+            line-height: 12px;
+            line-height: 1.2rem;
+          }
+        }
+      }
+
+      .sub-menu, 
+      .sub-menu .sub-menu {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        border: 0;
+        box-shadow: none;
+        display: none;
+        animation-delay: 0s;
+        animation-duration: 0.3s;
+        display: none;
+
+        &.active {
+          display: block;
+        }
+
+        li {
+          display: block;
+
+          a {
+            text-align: left;
+            font-family: 'MuseoSans300';
+            font-size: 16px;
+            font-size: 1.6rem;
+            line-height: 16px;
+            line-height: 1.6rem;
+            color: #000;
+            padding: 14px;
+
+            &:before {
+              display: none;
+            }
+          }
+
+          &.back {
+            a.js-back {
+              font-family: 'MuseoSans900';
+              padding-left: 10px;
+
+              &:after { 
+                content: 'D';
+                float: left;
+                line-height: 12px;
+                line-height: 1.2rem;
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+  }
+
+  // .megamenu-container ul {
+  //   float: none;
+  //   border-bottom: 1px solid black;
+
+  //   &.open > .mobile { display: block; }
+  // }
+
+  // .megamenu-container ul .site-section {
+  //   float: none;
+
+  //   &:first-child {
+  //       > a { border-top: none; }
+  //     }
+
+  //   > a {
+  //     text-align: left;
+  //     font-family: 'MuseoSans300';
+  //     line-height: 48px;
+  //     line-height: 4.8rem;
+  //     margin: 0 14px;
+  //     padding: 0;
+  //     border-top: 1px dotted black;
+
+  //     &.active {
+  //       background: transparent;
+  //       color: #000;
+  //       border-radius: 0;
+  //       margin-top: 0;
+  //     }
+
+  //     span {
+  //       display: block;
+  //     }
+  //   }
+
+  //   &.active {
+  //     + .mobile { display: block; }
+  //   }
+  // }
+
+  // .megamenu-container .mega-drop {
+  //   position: static;
+  // }
+
+  // .megamenu-container .mega-drop {
+  //   display: none;
+  // }
+
+  // .megamenu-container ul .site-section {
+  //   .inner {
+  //     padding: 0;
+  //     background-image: none;
+  //     border: none;
+  //   }
+  // }
+
+  // .megamenu-container .inner {
+  //   box-shadow: none;
+
+  //   ul {
+  //       &.mobile {
+  //         border-top: 1px dotted #ccc;
+  //       }
+  //       li {
+  //         &:first-child {
+  //           border: none;
+  //         }
+  //         padding-left: 10px;
+  //         border-top: 1px dotted #ccc;
+
+  //         a {
+  //           display: block;
+  //           padding: 8px 0 3px 16px;
+  //           color: #333;
+  //           font-family: 'WaitroseRegular';
+  //           font-size: 16px;
+  //           font-size: 1.6rem;
+  //           line-height: 26px;
+  //           line-height: 2.6rem;
+  //           position: relative;
+
+  //           &:before {
+  //             font-size: 14px;
+  //             padding: 5px 3px 0 0;
+  //             position: absolute;
+  //             left: 0;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+}
+
+@media only screen and (max-width: 567px) {
+  .megamenu-container {
+    .mega-btn a.icon_menu {
+      margin-right: 0;
+    }
+
+    .megamenu-list {
+      left: 0;
+    }
+  }
+}

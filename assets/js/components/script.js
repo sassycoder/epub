@@ -155,6 +155,23 @@
 				});
         
         $('#contactForm').validate({
+        	submitHandler: function(form, e) {
+        		e.preventDefault();
+
+        		var getForm = $(form);
+				    $.post('save-data.php',{ data: getForm.serialize() }, function( response ){
+							if ( response == '1' ) {
+								getForm[0].reset();
+								getForm.find('.field-row').removeClass('valid')
+								$('#modalSuccess').addClass('fade-in');
+								setTimeout(function(){$('#modalSuccess').removeClass('fade-in');},4000);
+							}
+							else {
+								$('#modalFail').addClass('fade-in');
+								setTimeout(function(){$('#modalFail').removeClass('fade-in');},4000);
+							}
+						});
+				  },
         	focusInvalid: true,
 				  rules: {
 				  	name: {
@@ -200,4 +217,19 @@
 				    $(element).parent().removeClass('invalid').addClass('valid');
 				  }
 				});
+				
+			// 	$('#contactForm').submit(function(e){
+			// 	e.preventDefault();
+			// 	var form = $(this);
+			// 	$.post('http://www.epublish.uk.net/save-data.php',{ data: form.serialize() }, function( response ){
+			// 		if ( response == '1' ) {
+			// 			$('#modalSuccess').addClass('fade-in');
+			// 			console.log('success');
+			// 		}
+			// 		else {
+			// 			$('#modalFail').addClass('fade-in');
+			// 			console.log('fail');
+			// 		}
+			// 	});
+			// });
 		});

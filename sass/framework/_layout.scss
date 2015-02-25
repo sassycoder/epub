@@ -54,6 +54,11 @@
       margin-top: 40px;
     }
 
+    &.no-padding {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
     // &.grid {
     //   .pane {
     //     &:nth-child(4n + 1) { margin-left: 0; }

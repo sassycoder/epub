@@ -6,6 +6,7 @@
 					navBtn = $('.nav-btn'),
 					expBtn = $('.bttn-exp'),
 					expBtnText = $('.bttn-exp').text(),
+					techFrame,
 					$window = $(window),
 					vidWrapper = $('.video-player'),
 					btnPlay = $('.vid-btn'),
@@ -60,13 +61,15 @@
 						var $this = $(this);
 
 						if ($this.hasClass('tech')) {
-							 owl.trigger('to.owl.carousel', 1);
+							 owl.trigger('to.owl.carousel', 0);
 							 $this.removeClass('tech');
-							 $this.text('Back To Simple  explanation');
+							 $this.text(expBtnText);
 						} else {
-							owl.trigger('to.owl.carousel', 4);
+							owl.hasClass('owl-responsive-0') ? techFrame = 3 : techFrame = 1;
+							owl.trigger('to.owl.carousel', techFrame);
 							$this.addClass('tech');
-							$this.text(expBtnText);
+							$this.text('Back To Simple  explanation');
+							
 							
 						}
 

@@ -74,8 +74,23 @@
     width: 45%;
   }
 
+  .owl-carousel .owl-item:after {    
+    background-position: 0 25px;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .owl-carousel .owl-item img {
+    width: auto;
+  }
+
+  .owl-carousel .owl-item img.special {
+    width: auto;
+  }
+
   .owl-carousel .owl-item:after {
     right: -10px;
+    background-position: 0 56px;
   }
 }
 

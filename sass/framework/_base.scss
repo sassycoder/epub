@@ -494,6 +494,21 @@ a.skip:active,a.skip:focus {
   margin: 20px 0 40px;
 }
 
+.cap {
+  overflow: hidden;
+
+  &.un-cap {
+    height: 100%!important;
+  }
+}
+
+.read-more {
+  display: none;
+  margin-top: 5px;
+  color: $orange;
+
+}
+
 .center {
   text-align: center;
 }
@@ -527,10 +542,14 @@ a.skip:active,a.skip:focus {
 .wrapper-partner {
   display: inline-block;
   max-width: 400px;
-  margin: 0 10px;
+  margin: 0 0 0 10px;
   padding-bottom: 80px;
   text-align: left;
   vertical-align: top;
+
+  &:first-child {
+    margin-left: 0;
+  }
 
   img {
     float: left;
@@ -685,6 +704,10 @@ a.skip:active,a.skip:focus {
   width: 100%;
   height: 416px;
   margin-bottom: 20px;
+
+  img {
+    max-width: none;
+  }
 }
 
 .contact-box {
@@ -951,7 +974,7 @@ footer {
   .wrapper-client {
     width: 40%;
     height: auto;
-    margin: 0 5%;
+    margin: 0 5% 10px;
   }
 
 }
@@ -1000,11 +1023,6 @@ footer {
     line-height: 1.2rem;
   }
 
-  .wrapper-partner {
-    max-width: 40%;
-    
-  }
-
   .news-item {
     width: 100%;
     margin-left: 0!important;
@@ -1028,7 +1046,12 @@ footer {
     }
   }
 
+  .read-more {
+    display: block;
+  }
+
   #map {
+    display: none;
     height: 208px;
   }
 
@@ -1041,8 +1064,11 @@ footer {
   .news-item {
     img {
       float: none;
-      width: auto;
+      width: 100%;
       margin: 0;
+    }
+    .news-date {
+      margin-top: 5px;
     }
   }
 }

@@ -16,7 +16,8 @@
 					iframe = $('#vid1')[0],
         	vid = $f(iframe),
         	vidPlaying = false,
-        	owl = $('.owl-carousel'),        	
+        	owl = $('.owl-carousel'),
+        	readMore = $('.read-more'),
 
 					playVid = function (e) {
 						if (vidPlaying) {
@@ -86,7 +87,7 @@
 		        2:{
 	            heading: 'The ePublish workflow: Edit & Collate',
 	            txt: 'Once the content is in the CMS the user adds in their interactions such as videos, rollovers or carousels. When they have finished the app they then export the content using PugPig or Adobe DPS.',
-	            bg: '#efd32b'
+	            bg: '#c3c4af'
 		        },
 		        3:{
 	            heading: 'The ePublish workflow: Publish & Deliver',
@@ -129,6 +130,25 @@
 						$('.carBg').css('background', carouselData[index].bg);
 					},
 
+					setCapHeight = function () {
+						$('.cap').css('height', $('.partner-text').height() + 'px');
+					},
+
+					handleCap = function (e) {
+						var $this = $(this),
+								$text = $this.parent().prev('.cap');
+
+						$text.toggleClass('un-cap');
+
+						if ($text.hasClass('un-cap')) {
+							$this.text('Read less');
+						} else {
+							$this.text('Read more...');
+						}
+
+						e.preventDefault();
+					},
+
 					initMap = function () {
             // Basic options for a simple Google Map
             // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
@@ -162,6 +182,17 @@
                 icon: 'assets/img/structure/map-marker.png',
                 title: 'Rhapsody Media'
             });
+
+            var infowindow = new google.maps.InfoWindow(),
+            		boxText = document.createElement("div");
+        				boxText.innerHTML = "<strong>Rhapsody Ltd</strong><br><br>109-123 Clifton Street,<br>London,<br>EC2A 4LD";
+
+            google.maps.event.addListener(marker, 'click', function() {
+			          infowindow.setContent(boxText);
+			          infowindow.open(map, marker);
+			      })
+
+
         	};
 
         	vid.addEvent('ready', function() {
@@ -177,8 +208,11 @@
         $('.vid-btn').on('click', playVid);
         expBtn.on('click', handleCarousel);
         $(header).scrollupbar();
+        $(readMore).on('click', handleCap);
 
         handleScrollFn();
+        setCapHeight();
+
         if ($window.innerWidth() < 1025) {
 					resizeHero(true);
 				}
@@ -292,6 +326,10 @@
 					resizeHero(true);
 				} else {
 					resizeHero(false);
+				}
+
+				if ($(this).innerWidth() < 481) {
+					setCapHeight();
 				}
 			});
 		});

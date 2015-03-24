@@ -235,7 +235,7 @@
   }
 
   .row {
-    padding: 0 4%;
+    padding: 0 5.5%;
     &.tp-margin, &.margin {
       padding-left: 28px;
       padding-right: 28px;
@@ -390,7 +390,7 @@
       width: 651px;
     }
     &.base12 {
-      width: 712px;
+      width: 100%;
     }
 
     &.base0 {
@@ -431,7 +431,7 @@
       width: 651px;
     }
     &.tp12 {
-      width: 712px;
+      width: 100%;
     }
     &.tp0 {
       width: 0;

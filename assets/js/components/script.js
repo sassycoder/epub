@@ -4,6 +4,7 @@
 
 			var header = $('header'),
 					navBtn = $('.nav-btn'),
+					navlink = $('.nav-link'),
 					expBtn = $('.bttn-exp'),
 					expBtnText = $('.bttn-exp').text(),
 					techFrame,
@@ -15,7 +16,7 @@
 					iframe = $('#vid1')[0],
         	vid = $f(iframe),
         	vidPlaying = false,
-        	owl = $('.owl-carousel'),		
+        	owl = $('.owl-carousel'),        	
 
 					playVid = function (e) {
 						if (vidPlaying) {
@@ -51,11 +52,48 @@
 					  // }
 					},
 
+					resizeHero = function (isMobile) {
+						if (isMobile) {
+							var vHeight = $window.height();
+							vidWrapper.css('height', vHeight + 'px');
+						} else {
+							vidWrapper.css('height', 'auto');
+						}
+					},
+
 					handleNav = function (e) {
 						header.toggleClass('menu-open');
 						header.hasClass('fixed') ? {} : header.addClass('fixed');
 						e.preventDefault();
 					},
+
+					handleNavLink = function (e) {
+						header.removeClass('menu-open');
+						e.preventDefault();
+					},
+
+					carouselData = {
+		        0:{
+		          heading: 'The ePublish workflow: Overview',
+		          txt: 'Our three stage delivery starts with tagging print Adobe Indesign files. These are uploaded to our ePublish system where the user adds in interactive elements such as roll overs and videos. HTML is them exported from the CMS to any file format.',
+		          bg: '#a5c3c9'
+		        },
+		        1: {
+		        	heading: 'The ePublish workflow: Tag and Export',
+		        	txt: 'The first stage starts with the user tagging up their InDesign document, they then select the template which they would like to export the content to and them export this via an XML feed to the CMS',
+		        	bg: '#efd32b'
+		        },
+		        2:{
+	            heading: 'The ePublish workflow: Edit & Collate',
+	            txt: 'Once the content is in the CMS the user adds in their interactions such as videos, rollovers or carousels. When they have finished the app they then export the content using PugPig or Adobe DPS.',
+	            bg: '#efd32b'
+		        },
+		        3:{
+	            heading: 'The ePublish workflow: Publish & Deliver',
+	            txt: 'Finally the user pushed content to the various news stand where they can be downloaded as iOS, Android, Windows 8 or Adobe DPS apps or viewed as a responsive website.',
+	            bg: '#efd32b'
+		        }
+		    	},
 
 					handleCarousel = function (e) {
 						var $this = $(this);
@@ -68,12 +106,27 @@
 							owl.hasClass('owl-responsive-0') ? techFrame = 3 : techFrame = 1;
 							owl.trigger('to.owl.carousel', techFrame);
 							$this.addClass('tech');
-							$this.text('Back To Simple  explanation');
-							
-							
+							$this.text('Back To Simple  explanation');							
+						}
+						e.preventDefault();
+					},
+
+					handleCarData = function (slide) {
+						var index;
+
+						if (slide <= 2) {
+							index = 0
+						} else if (slide > 2 && slide <= 5) {
+							index = 1;
+						} else if (slide > 5 && slide <= 8) {
+							index = 2
+						} else {
+							index = 3
 						}
 
-						e.preventDefault();
+						$('.carHeading').text(carouselData[index].heading);
+						$('.carTxt').text(carouselData[index].txt);
+						$('.carBg').css('background', carouselData[index].bg);
 					},
 
 					initMap = function () {
@@ -119,11 +172,16 @@
 
         initMap();
         $window.on('scroll', handleScrollFn);
-        navBtn.on('click', handleNav);    
+        navBtn.on('click', handleNav);
+        // navlink.on('click', handleNavLink);  
         $('.vid-btn').on('click', playVid);
-        expBtn.on('click', handleCarousel);  
+        expBtn.on('click', handleCarousel);
+        $(header).scrollupbar();
 
         handleScrollFn();
+        if ($window.innerWidth() < 1025) {
+					resizeHero(true);
+				}
 
         owl.owlCarousel({
 				    items: 3,
@@ -149,17 +207,32 @@
 					var $this = $(this),
 							items = $this.find('.owl-item'),
 							dots = $this.find('.owl-dot'),
+							slide = e.item.index,
 							lastItemIndex = e.item.count-1,
 							lastDotIndex = (dots.length)-1;
 					
 					if (items.eq(lastItemIndex).hasClass('active')) {
 						dots.removeClass('active').eq(lastDotIndex).addClass('active');
 					}
+
+					handleCarData(slide);
+				});
+
+				jQuery.validator.addMethod("checkEmail", function(value, element) {
+					if (/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(value)) {
+						return true;
+					}
+					return false;
 				});
         
         $('#contactForm').validate({
         	submitHandler: function(form, e) {
         		e.preventDefault();
+
+        		//Prevent spammers - if hidden field has data (populated by robots) then don't submit form
+        		if ($('#fax').val().length > 0) {
+        			return false;
+        		}
 
         		var getForm = $(form);
 				    $.post('save-data.php',{ data: getForm.serialize() }, function( response ){
@@ -195,23 +268,16 @@
 				    	}
 				  	},
 				  	email: {
-				    	required: {
-				    		depends: function(element) {
-				          return $(element).val().length > 0;
-				        }
-				    	},
-				      email: true
-				    },
-				  	phone: {
+				    	checkEmail: true,
 				  		required: true
-				  	},
-				  	pub: {
+				    },
+				    phone: {
 				  		required: {
 				    		depends: function(element) {
 				          return $(element).val().length > 0;
 				        }
 				    	}
-				  	}
+				  	},
 				  },
 				  errorPlacement: function(error, element) {
 				      $(element).parent().removeClass('valid').addClass('invalid');
@@ -220,19 +286,14 @@
 				    $(element).parent().removeClass('invalid').addClass('valid');
 				  }
 				});
-				
-			// 	$('#contactForm').submit(function(e){
-			// 	e.preventDefault();
-			// 	var form = $(this);
-			// 	$.post('http://www.epublish.uk.net/save-data.php',{ data: form.serialize() }, function( response ){
-			// 		if ( response == '1' ) {
-			// 			$('#modalSuccess').addClass('fade-in');
-			// 			console.log('success');
-			// 		}
-			// 		else {
-			// 			$('#modalFail').addClass('fade-in');
-			// 			console.log('fail');
-			// 		}
-			// 	});
-			// });
+
+			$window.on('resize', function () {
+				if ($(this).innerWidth() < 1025) {
+					resizeHero(true);
+				} else {
+					resizeHero(false);
+				}
+			});
 		});
+
+		

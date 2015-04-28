@@ -564,7 +564,8 @@ a.skip:active,a.skip:focus {
   vertical-align: top;
 
   .hp {
-    position: absolute;
+    // position: absolute;
+    height: 0px;
     visibility: hidden;
   }
 
@@ -610,7 +611,7 @@ a.skip:active,a.skip:focus {
   }
 
   .bttn {
-    margin: 40px 0;
+    margin: 20px 0 40px;
     -webkit-appearance: button;
   }
 }

@@ -152,6 +152,7 @@
 					initMap = function () {
             // Basic options for a simple Google Map
             // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+            // API key (referenced in the script includes in footer) is generated from rhapsody.dps@gmail.com
             var mapOptions = {
                 // How zoomed in you want the map to start at (always required)
                 zoom: 17,

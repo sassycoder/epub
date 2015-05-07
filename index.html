@@ -16,12 +16,12 @@
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	
 	    <!-- CSS -->
-	  <link rel="stylesheet" type="text/css" href="//cloud.typography.com/6942954/780906/css/fonts.css" />
+	  <!-- <link rel="stylesheet" type="text/css" href="//cloud.typography.com/6942954/780906/css/fonts.css" /> -->
 		<link type="text/css" rel="stylesheet" href="assets/css/main.css">
 	  <link type="text/css" rel="stylesheet" href="assets/css/print.css" media="print">
 	
 	    <!-- Must live here to provide html5 shiv in IE8 -->
-	    <script src="assets/js/lib/single/modernizr-2.8.3.js"></script>
+			<!-- <script src="assets/js/lib/single/modernizr-2.8.3.js"></script> -->
 	
 	    <!--[if lt IE 9]>    	
 			<script src="assets/js/lib/single/respond.min.js"></script>
@@ -359,10 +359,21 @@
 			</div><!-- .main -->			
 	</div><!-- .wrapper -->
 
+	<script type="text/javascript">
+	var cb = function() {
+	        var l = document.createElement('link'); l.rel = 'stylesheet';
+	        l.href = '//cloud.typography.com/6942954/780906/css/fonts.css';
+	        var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
+	      };
+	      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+	          webkitRequestAnimationFrame || msRequestAnimationFrame;
+	      if (raf) raf(cb);
+	      else window.addEventListener('load', cb);
+	</script>
 	<script type="text/javascript" src="assets/js/lib.min.js"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzmGOrzP1jQpzOBBJyqxBTMruDNRU4BSo&sensor=false"></script>
 	<script type="text/javascript" src="assets/js/framework.min.js"></script>
-	<script type="text/javascript" src="assets/js/components.js"></script>
+	<script type="text/javascript" src="assets/js/components.min.js"></script>
 
   </body>
 </html>

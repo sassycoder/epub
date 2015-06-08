@@ -21,8 +21,8 @@
         	$newsTemplate = $('.hbs-news-posts'),
 
         	getNewsPosts = function () {
-				 		var template;
-				 				$.ajax({
+				 		var template,
+				 				getData = $.ajax({
 					        url: "http://www.rhapsodymedia.co.uk/blog/?json=get_recent_posts&count=3",
 					        dataType: 'jsonp',
 					        success: function (data) {
@@ -34,7 +34,7 @@
 									    .removeClass('loading');
 				            }
 					        }
-					    });
+					    	});
 				  },
 
 					playVid = function (e) {
@@ -225,7 +225,6 @@
 					Handlebars.registerHelper('dateFormat', function(context, block) {
 					  if (window.moment) {
 					  	var f = block.hash.format || 'MMMM Do YYYY, h:mm:ss a';
-					    //var f = 'MMMM Do, YYYY';
 					    return moment(context).format(f); //had to remove Date(context)
 					  }else{
 					    return context;   //  moment plugin not available. return data as is.

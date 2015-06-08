@@ -1,0 +1,8 @@
+{{#each posts}}
+<div class="pane news-item">
+	<a href="{{this.url}}" target="_blank"><img src="{{this.attachments.[0].[url]}}" alt="news item"></a>
+	<p class="news-date">{{dateFormat this.date format="MMMM Do, YYYY"}}</p>
+	<p class="news-title"><a href="{{this.url}}" target="_blank">{{this.title}}</a></p>
+	<div class="news-desc">{{{this.excerpt}}}</div>
+</div>
+{{/each}}

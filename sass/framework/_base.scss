@@ -648,6 +648,11 @@ a.skip:active,a.skip:focus {
 .news-item {
   vertical-align: top;
   width: 229px;
+
+  img {
+    max-height: 151px;
+    margin: 0 auto;
+  }
 }
 
 .news-date {
@@ -674,9 +679,15 @@ a.skip:active,a.skip:focus {
   }
 }
 
-.news-desc {
+.news-desc, .news-desc p {
   font-size: 12px;
   font-size: 1.2rem;
+
+  a:last-child {
+    font-family: 'Gotham Narrow SSm A', 'Gotham Narrow SSm B'; font-weight: 700; font-style: normal;
+    font-size: 12px;
+    font-size: 1.2rem;
+  }
 }
 
 .news-more {
@@ -699,6 +710,23 @@ a.skip:active,a.skip:focus {
 
 .search-box:-ms-input-placeholder {
   color:    $black;
+}
+
+.loader {
+  background: url('/assets/img/structure/loader.gif') no-repeat center #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: 0.5s all ease;
+  opacity: 0;
+  z-index: -1;
+}
+
+.loading .loader {
+  opacity: 1;
+  z-index: 1;
 }
 
 #map {
@@ -976,6 +1004,10 @@ footer {
     width: 40%;
     height: auto;
     margin: 0 5% 10px;
+
+    img {
+      margin: 0 auto;
+    }
   }
 
 }
@@ -1029,6 +1061,12 @@ footer {
     margin-left: 0!important;
     
     img {
+      float: left;
+      width: 40%;
+      margin-right: 10px;
+      max-height: none;
+    }
+    iframe {
       float: left;
       width: 40%;
       margin-right: 10px;

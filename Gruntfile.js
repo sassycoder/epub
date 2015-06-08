@@ -7,6 +7,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-bake');
 
   grunt.initConfig({
+    dirs: {
+      handlebars: 'assets/hbs',
+    },
+
     watch: {
       compass: {
         files: 'sass/**/*.scss',
@@ -25,6 +29,11 @@ module.exports = function (grunt) {
       bake: {
         files: ['templates/**/*.html'],
         tasks: 'bake:build'
+      },
+
+      handlebars: {
+        files: ['<%= handlebars.compile.src %>'],
+        tasks: ['handlebars:compile', 'concat', 'uglify']
       }
     },
 
@@ -42,7 +51,8 @@ module.exports = function (grunt) {
 
     concat: {
       components: {
-        src: ['assets/js/components/*.js'],
+        src: ['assets/js/components/*.js',
+              'assets/js/templates.js'],
         dest: 'assets/js/components.js'
       },
       framework: {
@@ -97,9 +107,22 @@ module.exports = function (grunt) {
           to: '../../assets/img'
         }]
       }
+    },
+
+    handlebars: {
+      compile: {
+        src: '<%= dirs.handlebars %>/*.hbs',
+        dest: 'assets/js/templates.js',
+        options: {
+          namespace: 'Rhapsody.Templates',
+          processName: function(filePath) {
+            return filePath.replace(/^assets\/hbs\//, '').replace(/\.hbs$/, '');
+          }
+        }
+      }
     }
   });
 
-  grunt.registerTask('build', ['compass:clean', 'compass:dist', 'jshint', 'concat', 'uglify', 'bake:build', 'replace']);
+  grunt.registerTask('build', ['compass:clean', 'compass:dist', 'jshint', 'handlebars', 'concat', 'uglify', 'bake:build', 'replace']);
   grunt.registerTask('default', ['build']);
 };

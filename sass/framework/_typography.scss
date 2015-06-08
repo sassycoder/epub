@@ -16,7 +16,7 @@
     font-family: 'ElegantIcons';
     src: url('../fonts/ElegantIcons.eot');
     src: url('../fonts/ElegantIcons.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/ElegantIcons.svg#ElegantIcons') format('svg'),
+    // url('../fonts/ElegantIcons.svg#ElegantIcons') format('svg'),
     url('../fonts/ElegantIcons.woff') format('woff'),
     url('../fonts/ElegantIcons.ttf')  format('truetype');
 }
@@ -33,13 +33,13 @@ font-family: 'Gotham Narrow SSm A', 'Gotham Narrow SSm B'; font-weight: 800; fon
 */
 
 // START Fuzzy rendering fix for chrome http://sassycoder.wordpress.com/2013/11/16/font-face-rendering-issue-in-chrome-2/
-@media screen and (-webkit-min-device-pixel-ratio:0) {
+// @media screen and (-webkit-min-device-pixel-ratio:0) {
     
-    @font-face {
-        font-family: 'ElegantIcons';
-        src: url('../fonts/ElegantIcons.svg#ElegantIcons') format('svg');
-    }
-}
+//     @font-face {
+//         font-family: 'ElegantIcons';
+//         src: url('../fonts/ElegantIcons.svg#ElegantIcons') format('svg');
+//     }
+// }
 
 //END Chrome fix
 

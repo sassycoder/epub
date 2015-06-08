@@ -18,6 +18,24 @@
         	vidPlaying = false,
         	owl = $('.owl-carousel'),
         	readMore = $('.read-more'),
+        	$newsTemplate = $('.hbs-news-posts'),
+
+        	getNewsPosts = function () {
+				 		var template;
+				 				$.ajax({
+					        url: "http://www.rhapsodymedia.co.uk/blog/?json=get_recent_posts&count=3",
+					        dataType: 'jsonp',
+					        success: function (data) {
+				            if (data) {
+				            	//handlebars		 		
+											template = Rhapsody.Templates['newspost'];
+									    $newsTemplate
+									    .append(template(data))
+									    .removeClass('loading');
+				            }
+					        }
+					    });
+				  },
 
 					playVid = function (e) {
 						if (vidPlaying) {
@@ -130,8 +148,12 @@
 						$('.carBg').css('background', carouselData[index].bg);
 					},
 
-					setCapHeight = function () {
-						$('.cap').css('height', $('.partner-text').height() + 'px');
+					setCapHeight = function (reverse) {
+						if (reverse) {
+							$('.cap').css('height', 'auto');
+						} else {
+							$('.cap').css('height', $('.partner-text').height() + 'px');
+						}
 					},
 
 					handleCap = function (e) {
@@ -196,12 +218,27 @@
 
         	};
 
+        	//  format an ISO date using Moment.js
+					//  http://momentjs.com/
+					//  moment syntax example: moment(Date("2011-07-18T15:50:52")).format("MMMM YYYY")
+					//  usage: {{dateFormat creation_date format="MMMM YYYY"}}
+					Handlebars.registerHelper('dateFormat', function(context, block) {
+					  if (window.moment) {
+					  	var f = block.hash.format || 'MMMM Do YYYY, h:mm:ss a';
+					    //var f = 'MMMM Do, YYYY';
+					    return moment(context).format(f); //had to remove Date(context)
+					  }else{
+					    return context;   //  moment plugin not available. return data as is.
+					  };
+					});
+
         	vid.addEvent('ready', function() {
 		        vid.addEvent('pause', function () { vidPlaying = false;});
 		        vid.addEvent('finish', vidFinished);
 		        vid.addEvent('playProgress', function () { vidPlaying = true;});
 			    });
 
+      	getNewsPosts();
         initMap();
         $window.on('scroll', handleScrollFn);
         navBtn.on('click', handleNav);
@@ -211,11 +248,14 @@
         $(header).scrollupbar();
         $(readMore).on('click', handleCap);
 
-        handleScrollFn();
-        setCapHeight();
+        handleScrollFn();        
 
         if ($window.innerWidth() < 1025) {
 					resizeHero(true);
+				}
+
+				if ($window.innerWidth() < 481) {
+					setCapHeight();
 				}
 
         owl.owlCarousel({
@@ -264,7 +304,7 @@
         	submitHandler: function(form, e) {
         		e.preventDefault();
 
-        		//Prevent spammers - if hidden field has data (populated by robots) then don't submit form
+        		//Prevent spammers - if this hidden field has data (populated by robots) then don't submit form
         		if ($('#fax').val().length > 0) {
         			return false;
         		}
@@ -325,6 +365,7 @@
 			$window.on('resize', function () {
 				if ($(this).innerWidth() < 1025) {
 					resizeHero(true);
+					setCapHeight(true);
 				} else {
 					resizeHero(false);
 				}

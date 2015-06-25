@@ -38,6 +38,7 @@
     "sinon": false,
     "plugins": false,
     "helpers": true,
-    "fixtures": true
+    "fixtures": true,
+    "WOW": false
   }
 }

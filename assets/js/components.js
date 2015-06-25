@@ -176,54 +176,54 @@
 						}
 
 						e.preventDefault();
+					},
+
+					initMap = function () {
+						// Basic options for a simple Google Map
+						// For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+						// API key (referenced in the script includes in footer) is generated from rhapsody.dps@gmail.com
+						var mapOptions = {
+							// How zoomed in you want the map to start at (always required)
+							zoom: 17,
+							panControl: false,
+							mapTypeControl: false,
+							zoomControl: false,
+							scrollwheel: false,
+
+						// The latitude and longitude to center the map (always required)
+						center: new google.maps.LatLng(51.5236779, -0.0833322), // Rhapsody
+
+						// How you would like to style the map. 
+						// This is where you would paste any style found on Snazzy Maps.
+						styles: [{'featureType':'landscape','stylers':[{'saturation':-100},{'lightness':65},{'visibility':'on'}]},{'featureType':'poi','stylers':[{'saturation':-100},{'lightness':51},{'visibility':'simplified'}]},{'featureType':'road.highway','stylers':[{'saturation':-100},{'visibility':'simplified'}]},{'featureType':'road.arterial','stylers':[{'saturation':-100},{'lightness':30},{'visibility':'on'}]},{'featureType':'road.local','stylers':[{'saturation':-100},{'lightness':40},{'visibility':'on'}]},{'featureType':'transit','stylers':[{'saturation':-100},{'visibility':'simplified'}]},{'featureType':'administrative.province','stylers':[{'visibility':'off'}]},{'featureType':'water','elementType':'labels','stylers':[{'visibility':'on'},{'lightness':-25},{'saturation':-100}]},{'featureType':'water','elementType':'geometry','stylers':[{'hue':'#ffff00'},{'lightness':-25},{'saturation':-97}]}]
+						};
+
+						// Get the HTML DOM element that will contain your map 
+						// We are using a div with id='map' seen below in the <body>
+						var mapElement = document.getElementById('map');
+
+						// Create the Google Map using our element and options defined above
+						var map = new google.maps.Map(mapElement, mapOptions);
+
+						// Let's also add a marker while we're at it
+						var marker = new google.maps.Marker({
+								position: new google.maps.LatLng(51.5236779, -0.0833322),
+								map: map,
+								icon: 'assets/img/structure/map-marker.png',
+								title: 'Rhapsody Media'
+						});
+
+						var infowindow = new google.maps.InfoWindow(),
+								boxText = document.createElement('div');
+								boxText.innerHTML = '<strong>Rhapsody Ltd</strong><br><br>109-123 Clifton Street,<br>London,<br>EC2A 4LD';
+
+						google.maps.event.addListener(marker, 'click', function() {
+							infowindow.setContent(boxText);
+							infowindow.open(map, marker);
+						});
+
+
 					};
-
-					// initMap = function () {
-					// 	// Basic options for a simple Google Map
-					// 	// For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-					// 	// API key (referenced in the script includes in footer) is generated from rhapsody.dps@gmail.com
-					// 	var mapOptions = {
-					// 		// How zoomed in you want the map to start at (always required)
-					// 		zoom: 17,
-					// 		panControl: false,
-					// 		mapTypeControl: false,
-					// 		zoomControl: false,
-					// 		scrollwheel: false,
-
-					// 	// The latitude and longitude to center the map (always required)
-					// 	center: new google.maps.LatLng(51.5236779, -0.0833322), // Rhapsody
-
-					// 	// How you would like to style the map. 
-					// 	// This is where you would paste any style found on Snazzy Maps.
-					// 	styles: [{'featureType':'landscape','stylers':[{'saturation':-100},{'lightness':65},{'visibility':'on'}]},{'featureType':'poi','stylers':[{'saturation':-100},{'lightness':51},{'visibility':'simplified'}]},{'featureType':'road.highway','stylers':[{'saturation':-100},{'visibility':'simplified'}]},{'featureType':'road.arterial','stylers':[{'saturation':-100},{'lightness':30},{'visibility':'on'}]},{'featureType':'road.local','stylers':[{'saturation':-100},{'lightness':40},{'visibility':'on'}]},{'featureType':'transit','stylers':[{'saturation':-100},{'visibility':'simplified'}]},{'featureType':'administrative.province','stylers':[{'visibility':'off'}]},{'featureType':'water','elementType':'labels','stylers':[{'visibility':'on'},{'lightness':-25},{'saturation':-100}]},{'featureType':'water','elementType':'geometry','stylers':[{'hue':'#ffff00'},{'lightness':-25},{'saturation':-97}]}]
-					// 	};
-
-					// 	// Get the HTML DOM element that will contain your map 
-					// 	// We are using a div with id='map' seen below in the <body>
-					// 	var mapElement = document.getElementById('map');
-
-					// 	// Create the Google Map using our element and options defined above
-					// 	var map = new google.maps.Map(mapElement, mapOptions);
-
-					// 	// Let's also add a marker while we're at it
-					// 	var marker = new google.maps.Marker({
-					// 			position: new google.maps.LatLng(51.5236779, -0.0833322),
-					// 			map: map,
-					// 			icon: 'assets/img/structure/map-marker.png',
-					// 			title: 'Rhapsody Media'
-					// 	});
-
-					// 	var infowindow = new google.maps.InfoWindow(),
-					// 			boxText = document.createElement('div');
-					// 			boxText.innerHTML = '<strong>Rhapsody Ltd</strong><br><br>109-123 Clifton Street,<br>London,<br>EC2A 4LD';
-
-					// 	google.maps.event.addListener(marker, 'click', function() {
-					// 		infowindow.setContent(boxText);
-					// 		infowindow.open(map, marker);
-					// 	});
-
-
-					// };
 
 					//  format an ISO date using Moment.js
 					//  http://momentjs.com/
@@ -245,7 +245,7 @@
 					});
 
 					getNewsPosts();
-					// initMap();
+					initMap();
 					$window.on('scroll', handleScrollFn);
 					navBtn.on('click', handleNav);
 					// navlink.on('click', handleNavLink);

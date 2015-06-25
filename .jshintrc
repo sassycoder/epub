@@ -21,7 +21,11 @@
   "expr": true,
   "boss": true,
   "globals": {
-    "LBS": false,
+    "Handlebars": false,
+    "Rhapsody": false,
+    "google": false,
+    "moment": false,
+    "$f": false,
     "expect": false,
     "describe": false,
     "xdescribe": false,

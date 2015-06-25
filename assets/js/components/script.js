@@ -4,7 +4,7 @@
 
 			var header = $('header'),
 					navBtn = $('.nav-btn'),
-					navlink = $('.nav-link'),
+					//navlink = $('.nav-link'),
 					expBtn = $('.bttn-exp'),
 					expBtnText = $('.bttn-exp').text(),
 					techFrame,
@@ -12,36 +12,43 @@
 					vidWrapper = $('.video-player'),
 					btnPlay = $('.vid-btn'),
 					btnText = btnPlay.text(),
-					poster = $('.vid-ph'),
+					//poster = $('.vid-ph'),
 					iframe = $('#vid1')[0],
-        	vid = $f(iframe),
-        	vidPlaying = false,
-        	owl = $('.owl-carousel'),
-        	readMore = $('.read-more'),
-        	$newsTemplate = $('.hbs-news-posts'),
+					vid = $f(iframe),
+					vidPlaying = false,
+					owl = $('.owl-carousel'),
+					readMore = $('.read-more'),
+					$newsTemplate = $('.hbs-news-posts'),
 
-        	getNewsPosts = function () {
-				 		var template,
-				 				getData = $.ajax({
-					        url: "http://www.rhapsodymedia.co.uk/blog/?json=get_recent_posts&count=3",
-					        dataType: 'jsonp',
-					        success: function (data) {
-				            if (data) {
-				            	//handlebars		 		
-											template = Rhapsody.Templates['newspost'];
-									    $newsTemplate
-									    .append(template(data))
-									    .removeClass('loading');
-				            }
-					        }
-					    	});
-				  },
+					getNewsPosts = function () {
+						var template;
+						$.ajax({
+							url: 'http://www.rhapsodymedia.co.uk/blog/?json=get_recent_posts&count=3',
+							dataType: 'jsonp',
+							success: function (data) {
+								if (data) {
+									//handlebars
+									template = Rhapsody.Templates.newspost;
+									$newsTemplate.append(template(data));
+								}
+							},
+							complete: function () {
+								$newsTemplate.removeClass('loading');
+							},
+							error: function (jqXHR) {
+								$newsTemplate
+								.html('<p>No news items at the moment, please check back soon!</p>')
+								.removeClass('loading');
+								console.log('ERROR: News posts ' + jqXHR.status + ' ' + jqXHR.statusText + ' - Suggest checking the JSON url');
+							}
+						});
+					},
 
 					playVid = function (e) {
 						if (vidPlaying) {
 							$(vidWrapper).removeClass('vid-playing');
 							vid.api('pause');
-							btnPlay.text(btnText);	
+							btnPlay.text(btnText);
 							vidPlaying = false;
 
 						} else {
@@ -64,11 +71,11 @@
 					    header.addClass('fixed').removeClass('menu-open');
 					  } else {
 					    header.removeClass('fixed menu-open');
-					  };
+					  }
 
-					  // if ($window.scrollTop() > 580 && vidPlaying) {
-					  // 	vid.api('pause');
-					  // }
+						// if ($window.scrollTop() > 580 && vidPlaying) {
+						// 	vid.api('pause');
+						// }
 					},
 
 					resizeHero = function (isMobile) {
@@ -86,33 +93,33 @@
 						e.preventDefault();
 					},
 
-					handleNavLink = function (e) {
-						header.removeClass('menu-open');
-						e.preventDefault();
-					},
+					// handleNavLink = function (e) {
+					// 	header.removeClass('menu-open');
+					// 	e.preventDefault();
+					// },
 
 					carouselData = {
-		        0:{
-		          heading: 'The ePublish workflow: Overview',
-		          txt: 'Our three stage delivery starts with tagging print Adobe Indesign files. These are uploaded to our ePublish system where the user adds in interactive elements such as roll overs and videos. HTML is them exported from the CMS to any file format.',
-		          bg: '#a5c3c9'
-		        },
-		        1: {
-		        	heading: 'The ePublish workflow: Tag and Export',
-		        	txt: 'The first stage starts with the user tagging up their InDesign document, they then select the template which they would like to export the content to and them export this via an XML feed to the CMS',
-		        	bg: '#efd32b'
-		        },
-		        2:{
-	            heading: 'The ePublish workflow: Edit & Collate',
-	            txt: 'Once the content is in the CMS the user adds in their interactions such as videos, rollovers or carousels. When they have finished the app they then export the content using PugPig or Adobe DPS.',
-	            bg: '#c3c4af'
-		        },
-		        3:{
-	            heading: 'The ePublish workflow: Publish & Deliver',
-	            txt: 'Finally the user pushed content to the various news stand where they can be downloaded as iOS, Android, Windows 8 or Adobe DPS apps or viewed as a responsive website.',
-	            bg: '#efd32b'
-		        }
-		    	},
+						0:{
+							heading: 'The ePublish workflow: Overview',
+							txt: 'Our three stage delivery starts with tagging print Adobe Indesign files. These are uploaded to our ePublish system where the user adds in interactive elements such as roll overs and videos. HTML is them exported from the CMS to any file format.',
+							bg: '#a5c3c9'
+						},
+						1:{
+							heading: 'The ePublish workflow: Tag and Export',
+							txt: 'The first stage starts with the user tagging up their InDesign document, they then select the template which they would like to export the content to and them export this via an XML feed to the CMS',
+							bg: '#efd32b'
+						},
+						2:{
+							heading: 'The ePublish workflow: Edit & Collate',
+							txt: 'Once the content is in the CMS the user adds in their interactions such as videos, rollovers or carousels. When they have finished the app they then export the content using PugPig or Adobe DPS.',
+							bg: '#c3c4af'
+						},
+						3:{
+							heading: 'The ePublish workflow: Publish & Deliver',
+							txt: 'Finally the user pushed content to the various news stand where they can be downloaded as iOS, Android, Windows 8 or Adobe DPS apps or viewed as a responsive website.',
+							bg: '#efd32b'
+						}
+					},
 
 					handleCarousel = function (e) {
 						var $this = $(this);
@@ -125,7 +132,7 @@
 							owl.hasClass('owl-responsive-0') ? techFrame = 3 : techFrame = 1;
 							owl.trigger('to.owl.carousel', techFrame);
 							$this.addClass('tech');
-							$this.text('Back To Simple  explanation');							
+							$this.text('Back To Simple  explanation');
 						}
 						e.preventDefault();
 					},
@@ -134,13 +141,13 @@
 						var index;
 
 						if (slide <= 2) {
-							index = 0
+							index = 0;
 						} else if (slide > 2 && slide <= 5) {
 							index = 1;
 						} else if (slide > 5 && slide <= 8) {
-							index = 2
+							index = 2;
 						} else {
-							index = 3
+							index = 3;
 						}
 
 						$('.carHeading').text(carouselData[index].heading);
@@ -169,113 +176,113 @@
 						}
 
 						e.preventDefault();
-					},
+					};
 
-					initMap = function () {
-            // Basic options for a simple Google Map
-            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-            // API key (referenced in the script includes in footer) is generated from rhapsody.dps@gmail.com
-            var mapOptions = {
-                // How zoomed in you want the map to start at (always required)
-                zoom: 17,
-                panControl: false,
-                mapTypeControl: false,
-                zoomControl: false,
-                scrollwheel: false,
+					// initMap = function () {
+					// 	// Basic options for a simple Google Map
+					// 	// For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+					// 	// API key (referenced in the script includes in footer) is generated from rhapsody.dps@gmail.com
+					// 	var mapOptions = {
+					// 		// How zoomed in you want the map to start at (always required)
+					// 		zoom: 17,
+					// 		panControl: false,
+					// 		mapTypeControl: false,
+					// 		zoomControl: false,
+					// 		scrollwheel: false,
 
-                // The latitude and longitude to center the map (always required)
-                center: new google.maps.LatLng(51.5236779, -0.0833322), // Rhapsody
+					// 	// The latitude and longitude to center the map (always required)
+					// 	center: new google.maps.LatLng(51.5236779, -0.0833322), // Rhapsody
 
-                // How you would like to style the map. 
-                // This is where you would paste any style found on Snazzy Maps.
-                styles: [{'featureType':'landscape','stylers':[{'saturation':-100},{'lightness':65},{'visibility':'on'}]},{'featureType':'poi','stylers':[{'saturation':-100},{'lightness':51},{'visibility':'simplified'}]},{'featureType':'road.highway','stylers':[{'saturation':-100},{'visibility':'simplified'}]},{'featureType':'road.arterial','stylers':[{'saturation':-100},{'lightness':30},{'visibility':'on'}]},{'featureType':'road.local','stylers':[{'saturation':-100},{'lightness':40},{'visibility':'on'}]},{'featureType':'transit','stylers':[{'saturation':-100},{'visibility':'simplified'}]},{'featureType':'administrative.province','stylers':[{'visibility':'off'}]},{'featureType':'water','elementType':'labels','stylers':[{'visibility':'on'},{'lightness':-25},{'saturation':-100}]},{'featureType':'water','elementType':'geometry','stylers':[{'hue':'#ffff00'},{'lightness':-25},{'saturation':-97}]}]
-            };
+					// 	// How you would like to style the map. 
+					// 	// This is where you would paste any style found on Snazzy Maps.
+					// 	styles: [{'featureType':'landscape','stylers':[{'saturation':-100},{'lightness':65},{'visibility':'on'}]},{'featureType':'poi','stylers':[{'saturation':-100},{'lightness':51},{'visibility':'simplified'}]},{'featureType':'road.highway','stylers':[{'saturation':-100},{'visibility':'simplified'}]},{'featureType':'road.arterial','stylers':[{'saturation':-100},{'lightness':30},{'visibility':'on'}]},{'featureType':'road.local','stylers':[{'saturation':-100},{'lightness':40},{'visibility':'on'}]},{'featureType':'transit','stylers':[{'saturation':-100},{'visibility':'simplified'}]},{'featureType':'administrative.province','stylers':[{'visibility':'off'}]},{'featureType':'water','elementType':'labels','stylers':[{'visibility':'on'},{'lightness':-25},{'saturation':-100}]},{'featureType':'water','elementType':'geometry','stylers':[{'hue':'#ffff00'},{'lightness':-25},{'saturation':-97}]}]
+					// 	};
 
-            // Get the HTML DOM element that will contain your map 
-            // We are using a div with id='map' seen below in the <body>
-            var mapElement = document.getElementById('map');
+					// 	// Get the HTML DOM element that will contain your map 
+					// 	// We are using a div with id='map' seen below in the <body>
+					// 	var mapElement = document.getElementById('map');
 
-            // Create the Google Map using our element and options defined above
-            var map = new google.maps.Map(mapElement, mapOptions);
+					// 	// Create the Google Map using our element and options defined above
+					// 	var map = new google.maps.Map(mapElement, mapOptions);
 
-            // Let's also add a marker while we're at it
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(51.5236779, -0.0833322),
-                map: map,
-                icon: 'assets/img/structure/map-marker.png',
-                title: 'Rhapsody Media'
-            });
+					// 	// Let's also add a marker while we're at it
+					// 	var marker = new google.maps.Marker({
+					// 			position: new google.maps.LatLng(51.5236779, -0.0833322),
+					// 			map: map,
+					// 			icon: 'assets/img/structure/map-marker.png',
+					// 			title: 'Rhapsody Media'
+					// 	});
 
-            var infowindow = new google.maps.InfoWindow(),
-            		boxText = document.createElement("div");
-        				boxText.innerHTML = "<strong>Rhapsody Ltd</strong><br><br>109-123 Clifton Street,<br>London,<br>EC2A 4LD";
+					// 	var infowindow = new google.maps.InfoWindow(),
+					// 			boxText = document.createElement('div');
+					// 			boxText.innerHTML = '<strong>Rhapsody Ltd</strong><br><br>109-123 Clifton Street,<br>London,<br>EC2A 4LD';
 
-            google.maps.event.addListener(marker, 'click', function() {
-			          infowindow.setContent(boxText);
-			          infowindow.open(map, marker);
-			      })
+					// 	google.maps.event.addListener(marker, 'click', function() {
+					// 		infowindow.setContent(boxText);
+					// 		infowindow.open(map, marker);
+					// 	});
 
 
-        	};
+					// };
 
-        	//  format an ISO date using Moment.js
+					//  format an ISO date using Moment.js
 					//  http://momentjs.com/
 					//  moment syntax example: moment(Date("2011-07-18T15:50:52")).format("MMMM YYYY")
 					//  usage: {{dateFormat creation_date format="MMMM YYYY"}}
 					Handlebars.registerHelper('dateFormat', function(context, block) {
-					  if (window.moment) {
-					  	var f = block.hash.format || 'MMMM Do YYYY, h:mm:ss a';
-					    return moment(context).format(f); //had to remove Date(context)
-					  }else{
-					    return context;   //  moment plugin not available. return data as is.
-					  };
+						if (window.moment) {
+							var f = block.hash.format || 'MMMM Do YYYY, h:mm:ss a';
+							return moment(context).format(f); //had to remove Date(context)
+						}else{
+							return context;   //  moment plugin not available. return data as is.
+						}
 					});
 
-        	vid.addEvent('ready', function() {
-		        vid.addEvent('pause', function () { vidPlaying = false;});
-		        vid.addEvent('finish', vidFinished);
-		        vid.addEvent('playProgress', function () { vidPlaying = true;});
-			    });
+					vid.addEvent('ready', function() {
+						vid.addEvent('pause', function () { vidPlaying = false;});
+						vid.addEvent('finish', vidFinished);
+						vid.addEvent('playProgress', function () { vidPlaying = true;});
+					});
 
-      	getNewsPosts();
-        initMap();
-        $window.on('scroll', handleScrollFn);
-        navBtn.on('click', handleNav);
-        // navlink.on('click', handleNavLink);  
-        $('.vid-btn').on('click', playVid);
-        expBtn.on('click', handleCarousel);
-        $(header).scrollupbar();
-        $(readMore).on('click', handleCap);
+					getNewsPosts();
+					// initMap();
+					$window.on('scroll', handleScrollFn);
+					navBtn.on('click', handleNav);
+					// navlink.on('click', handleNavLink);
+					$('.vid-btn').on('click', playVid);
+					expBtn.on('click', handleCarousel);
+					$(header).scrollupbar();
+					$(readMore).on('click', handleCap);
 
-        handleScrollFn();        
+					handleScrollFn();
 
-        if ($window.innerWidth() < 1025) {
-					resizeHero(true);
-				}
+					if ($window.innerWidth() < 1025) {
+						resizeHero(true);
+					}
 
-				if ($window.innerWidth() < 481) {
-					setCapHeight();
-				}
+					if ($window.innerWidth() < 481) {
+						setCapHeight();
+					}
 
-        owl.owlCarousel({
-				    items: 3,
-				    responsiveClass: true,
-				    nav: true,
-				    responsive:{
-				        0:{
-				            items:1
-				        },
-				        480: {
-				        	items: 2
-				        },
-				        767:{
-				            items:3
-				        },
-				        1024:{
-				            items:3
-				        }
-				    }
-				});
+	        owl.owlCarousel({
+						items: 3,
+						responsiveClass: true,
+						nav: true,
+						responsive:{
+							0:{
+								items:1
+							},
+							480: {
+								items: 2
+							},
+							767:{
+								items:3
+							},
+							1024:{
+								items:3
+							}
+						}
+					});
 
 				owl.on('translated.owl.carousel', function(e){
 					var $this = $(this),
@@ -292,27 +299,27 @@
 					handleCarData(slide);
 				});
 
-				jQuery.validator.addMethod("checkEmail", function(value, element) {
+				jQuery.validator.addMethod('checkEmail', function(value) {
 					if (/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(value)) {
 						return true;
 					}
 					return false;
 				});
-        
-        $('#contactForm').validate({
-        	submitHandler: function(form, e) {
-        		e.preventDefault();
 
-        		//Prevent spammers - if this hidden field has data (populated by robots) then don't submit form
-        		if ($('#fax').val().length > 0) {
-        			return false;
-        		}
+				$('#contactForm').validate({
+					submitHandler: function(form, e) {
+						e.preventDefault();
 
-        		var getForm = $(form);
-				    $.post('save-data.php',{ data: getForm.serialize() }, function( response ){
+						//Prevent spammers - if this hidden field has data (populated by robots) then don't submit form
+						if ($('#fax').val().length > 0) {
+							return false;
+						}
+
+						var getForm = $(form);
+						$.post('save-data.php',{ data: getForm.serialize() }, function( response ){
 							if ( response == '1' ) {
 								getForm[0].reset();
-								getForm.find('.field-row').removeClass('valid')
+								getForm.find('.field-row').removeClass('valid');
 								$('#modalSuccess').addClass('fade-in');
 								setTimeout(function(){$('#modalSuccess').removeClass('fade-in');},4000);
 							}
@@ -321,44 +328,44 @@
 								setTimeout(function(){$('#modalFail').removeClass('fade-in');},4000);
 							}
 						});
-				  },
-        	focusInvalid: true,
-				  rules: {
-				  	name: {
-				  		required: true
-				  	},
-				  	jobTitle: {
-				  		required: {
-				    		depends: function(element) {
-				          return $(element).val().length > 0;
-				        }
-				    	}
-				  	},
-				  	company: {
-				  		required: {
-				    		depends: function(element) {
-				          return $(element).val().length > 0;
-				        }
-				    	}
-				  	},
-				  	email: {
-				    	checkEmail: true,
-				  		required: true
-				    },
-				    phone: {
-				  		required: {
-				    		depends: function(element) {
-				          return $(element).val().length > 0;
-				        }
-				    	}
-				  	},
-				  },
-				  errorPlacement: function(error, element) {
-				      $(element).parent().removeClass('valid').addClass('invalid');
-			    },
-			    success: function(label, element) {
-				    $(element).parent().removeClass('invalid').addClass('valid');
-				  }
+					},
+					focusInvalid: true,
+					rules: {
+						name: {
+							required: true
+						},
+						jobTitle: {
+							required: {
+								depends: function(element) {
+									return $(element).val().length > 0;
+								}
+							}
+						},
+						company: {
+							required: {
+								depends: function(element) {
+									return $(element).val().length > 0;
+								}
+							}
+						},
+						email: {
+							checkEmail: true,
+							required: true
+						},
+						phone: {
+							required: {
+								depends: function(element) {
+									return $(element).val().length > 0;
+								}
+							}
+						},
+					},
+					errorPlacement: function(error, element) {
+						$(element).parent().removeClass('valid').addClass('invalid');
+					},
+					success: function(label, element) {
+						$(element).parent().removeClass('invalid').addClass('valid');
+					}
 				});
 
 			$window.on('resize', function () {
@@ -374,5 +381,3 @@
 				}
 			});
 		});
-
-		
